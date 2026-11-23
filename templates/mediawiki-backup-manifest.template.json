@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "backupId": "mediawiki-{timestamp}-{nonce}",
+  "sourceUrl": "https://www.mediawiki.org/wiki/MediaWiki",
+  "checkedAt": "{checkedAt}",
+  "changed": false,
+  "missing": false,
+  "httpStatus": 200,
+  "etag": "{etag}",
+  "lastModified": "{lastModified}",
+  "rawSha256": "sha256:{rawDigest}",
+  "encryptedFile": "{encryptedFile}",
+  "encryptedSha256": "sha256:{encryptedDigest}",
+  "encryption": {
+    "algorithm": "AES-256-GCM",
+    "keySource": "runtime-secret-store",
+    "keyId": "{keyId}"
+  },
+  "ipfs": {
+    "cid": "{cid}",
+    "pinned": false
+  },
+  "reportPath": "{reportPath}",
+  "status": "verified"
+}
+
