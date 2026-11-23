@@ -1,0 +1,21 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    { "type": "TextBlock", "text": "IPFS backup", "weight": "Bolder", "size": "Medium" },
+    { "type": "FactSet", "facts": [
+      { "title": "Backup", "value": "${backupId}" },
+      { "title": "CID", "value": "${cid}" },
+      { "title": "SHA-256", "value": "${sha256}" },
+      { "title": "Size", "value": "${size} bytes" },
+      { "title": "Status", "value": "${status}" }
+    ] },
+    { "type": "TextBlock", "text": "Encrypted backup. File content and secrets are not displayed.", "wrap": true, "isSubtle": true }
+  ],
+  "actions": [
+    { "type": "Action.Submit", "title": "Verify backup", "data": { "operation": "ipfs_stat" } },
+    { "type": "Action.Submit", "title": "Read library metadata", "data": { "operation": "read_library" } }
+  ]
+}
+
