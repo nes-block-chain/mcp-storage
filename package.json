@@ -1,0 +1,21 @@
+{
+  "name": "pc-storage-mcp-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Read-only MCP plugin for the local PC Storage sandbox",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "engines": { "node": ">=20.3" },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.3.1",
+    "zod": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.3"
+  }
+}
+
