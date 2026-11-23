@@ -1,0 +1,21 @@
+{
+  "templateVersion": 1,
+  "name": "ipfs-http-backup",
+  "transport": "http",
+  "ipfsApiUrl": "http://127.0.0.1:5001",
+  "mcpServer": "ipfs-mcp",
+  "downloadEndpoint": "/api/v0/get?arg={cid}",
+  "uploadEndpoint": "/api/v0/add",
+  "backupRoot": "${PC_STORAGE_ROOT}/out_sync/ipfs/backups",
+  "manifestRoot": "${PC_STORAGE_ROOT}/out_sync/ipfs/manifests",
+  "libraryPath": "ipfs_storage/backups",
+  "encryption": {
+    "required": true,
+    "keySource": "runtime-secret-store",
+    "algorithm": "AES-256-GCM"
+  },
+  "overwrite": false,
+  "returnContent": false,
+  "returnMetadataOnly": true
+}
+
