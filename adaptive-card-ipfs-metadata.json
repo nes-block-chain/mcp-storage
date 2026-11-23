@@ -1,0 +1,27 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    { "type": "TextBlock", "text": "IPFS download metadata", "weight": "Bolder", "size": "Medium" },
+    { "type": "FactSet", "facts": [
+      { "title": "CID", "value": "${cid}" },
+      { "title": "File", "value": "${fileName}" },
+      { "title": "Size", "value": "${bytes} bytes" },
+      { "title": "Transport", "value": "HTTP / Kubo" },
+      { "title": "Downloaded", "value": "${downloadedAt}" }
+    ] },
+    { "type": "Input.Text", "id": "fileName", "label": "File name", "value": "${fileName}", "isRequired": true },
+    { "type": "Input.Text", "id": "cid", "label": "CID", "value": "${cid}", "isRequired": true },
+    { "type": "TextBlock", "text": "ข้อมูลนี้เป็นข้อมูลก่อนบันทึกเข้า IPFS; ไม่ดาวน์โหลดเนื้อหาใน ipfs-data.tar", "wrap": true, "isSubtle": true, "spacing": "Medium" },
+    { "type": "TextBlock", "text": "ขั้นที่ 1 อ่าน → ขั้นที่ 2 เปิดข้อมูลเดิม/แก้ไข → ขั้นที่ 3 บันทึก → ขั้นที่ 4 เปิดดูข้อมูลชุดที่สอง", "wrap": true, "isSubtle": true }
+  ],
+  "actions": [
+    { "type": "Action.Submit", "title": "เชื่อมต่อครั้งแรก", "data": { "operation": "connect_first_read_metadata", "save": false } },
+    { "type": "Action.Submit", "title": "เปิดข้อมูลย้อนหลัง / แก้ไข", "data": { "operation": "open_history_edit_preview", "save": false } },
+    { "type": "Action.Submit", "title": "เชื่อมต่อครั้งที่สอง / บันทึก", "data": { "operation": "connect_second_register", "save": true } },
+    { "type": "Action.Submit", "title": "เปิดดูข้อมูลที่สอง", "data": { "operation": "open_second_data", "save": false } },
+    { "type": "Action.OpenUrl", "title": "Open PC Storage", "url": "http://localhost:8094/" }
+  ]
+}
+
