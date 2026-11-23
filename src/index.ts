@@ -3,6 +3,7 @@ import { McpServer } from "@modelcontextprotocol/server";
 import { serveStdio } from "@modelcontextprotocol/server/stdio";
 import * as z from "zod/v4";
 import { PcStorageSdk } from "./pc-storage-sdk.js";
+import { MongoStorageClient } from "./mongo-storage.js";
 
 const API_BASE_URL = process.env.PC_STORAGE_API_URL ?? "http://localhost:8094";
 const API_TOKEN = process.env.PC_STORAGE_API_TOKEN;
@@ -12,6 +13,7 @@ const PC_STORAGE_ROOT = process.env.PC_STORAGE_ROOT ?? "D:\\container\\multi-con
 const IPFS_DOWNLOAD_DIR = process.env.IPFS_DOWNLOAD_DIR ?? resolve(PC_STORAGE_ROOT, "out_sync", "ipfs", "downloads");
 const MAX_ITEMS = 100;
 const sdk = new PcStorageSdk({ baseUrl: API_BASE_URL, token: API_TOKEN });
+const mongo = new MongoStorageClient();
 
 type ApiResult = Record<string, unknown>;
 
@@ -70,6 +72,17 @@ function createServer(): McpServer {
     }),
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false }
   }, async ({ path }, ctx) => result(await sdk.library(path, ctx.mcpReq.signal) as ApiResult));
+
+  server.registerTool("mcp_storage_mongodb_read", {
+    title: "Read MongoDB through PC Storage MCP",
+    description: "อ่าน MongoDB แบบ read-only หลัง login ด้วย MongoDB credential; collection ต้องอยู่ใน allowlist และตัดข้อมูลลับออก",
+    inputSchema: z.strictObject({
+      collection: z.string().regex(/^[A-Za-z0-9_.-]+$/).max(100),
+      filter: z.record(z.string(), z.unknown()).default({}),
+      limit: z.number().int().min(1).max(100).default(50)
+    }),
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false }
+  }, async ({ collection, filter, limit }) => result(await mongo.read(collection, filter, limit)));
 
   server.registerTool("pc_storage_ipfs_reference", {
     title: "PC Storage IPFS MCP Reference",
