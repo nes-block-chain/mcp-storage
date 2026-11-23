@@ -1,0 +1,45 @@
+{
+  "name": "ipfs-reading-two-stage",
+  "endpoint": "http://localhost:8094/ipfs",
+  "archive": "ipfs-data.tar",
+  "downloadContent": false,
+  "steps": [
+    {
+      "number": 1,
+      "operation": "connect_first_read_metadata",
+      "description": "เชื่อมต่อครั้งแรกเพื่ออ่าน CID และ metadata เท่านั้น",
+      "write": false,
+      "allowed": ["read metadata", "show card"]
+    },
+    {
+      "number": 2,
+      "operation": "open_history_edit_preview",
+      "description": "เปิดข้อมูลย้อนหลังและแก้ไขใน preview",
+      "write": false,
+      "allowed": ["read history", "edit preview"],
+      "requires": "step 1"
+    },
+    {
+      "number": 3,
+      "operation": "connect_second_register",
+      "description": "เชื่อมต่อครั้งที่สองและบันทึกเมื่อผู้ใช้ยืนยัน",
+      "write": true,
+      "requires": "step 2",
+      "target": "POST /v1/register"
+    },
+    {
+      "number": 4,
+      "operation": "open_second_data",
+      "description": "เปิดดู metadata ของชุดข้อมูลที่สองหลังการบันทึก",
+      "write": false,
+      "requires": "step 3",
+      "allowed": ["read new CID", "show second metadata card"]
+    }
+  ],
+  "privacy": {
+    "archiveBytesDisplayed": false,
+    "secretsDisplayed": false,
+    "personalDataDisplayed": false
+  }
+}
+
