@@ -1,0 +1,20 @@
+{
+  "name": "pc-storage-mongodb-mcp-storage",
+  "source": "D:/container/multi-container-app/app/DockerDesktopVMM/data/data-center/data_leaning/pc_storage",
+  "sink": "MongoDB",
+  "consumer": "mcp-storage",
+  "mode": "metadata-only",
+  "collection": "pc_storage_metadata",
+  "steps": [
+    "scan pc_storage",
+    "exclude secrets, .git, node_modules, out_sync",
+    "hash metadata only",
+    "authenticate to MongoDB",
+    "upsert metadata documents",
+    "read through mcp_storage_mongodb_read"
+  ],
+  "contentTransfer": false,
+  "secretTransfer": false,
+  "requires": ["MONGO_STORAGE_URI", "MONGO_STORAGE_DB"]
+}
+
