@@ -1,7 +1,8 @@
 # MongoDB read connector
 
-`mcp_storage_mongodb_read` reads MongoDB only after successful MongoDB authentication.
-Credentials stay outside source code and are supplied at runtime:
+MongoDB is an internal backend for PC Storage API. Users and MCP clients must read
+through `http://localhost:8094/v1/storage`; direct MongoDB reads are not exposed by
+the MCP server. Credentials stay outside source code and are supplied at runtime:
 
 ```powershell
 $env:MONGO_STORAGE_URI = "mongodb://user:password@host:27017/?authSource=admin"
@@ -9,10 +10,9 @@ $env:MONGO_STORAGE_DB = "database_name"
 $env:MONGO_STORAGE_COLLECTIONS = "library,metadata,backups"
 ```
 
-The connector refuses to run without the URI and database name, refuses collections
-outside the allowlist, limits results to 100 documents, and removes common secret
-fields before returning data. It has no insert, update, delete, drop, or aggregation
-write tool.
+The backend refuses to run without the URI and database name, refuses collections
+outside the allowlist, and removes common secret fields. The public MCP surface only
+calls the authenticated PC Storage API.
 
 ## PC Storage → MongoDB → mcp-storage
 
@@ -29,6 +29,6 @@ node dist/pc-storage-mongo-sync.js
 ```
 
 The sync writes metadata only. It excludes secrets, `.git`, `node_modules`, and
-`out_sync`; it never uploads file contents. `mcp_storage_mongodb_read` then reads the
-allowlisted collection after MongoDB authentication.
+`out_sync`; it never uploads file contents. The PC Storage API exposes approved data
+at `/v1/storage`, and `mcp-storage` reads only that endpoint.
 
