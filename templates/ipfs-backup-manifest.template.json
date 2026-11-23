@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "backupId": "backup-{timestamp}-{nonce}",
+  "source": "pc_storage",
+  "storage": "ipfs",
+  "transport": "http",
+  "fileName": "{fileName}",
+  "cid": "{cid}",
+  "sha256": "sha256:{digest}",
+  "metadataHash": "hmac-sha256:{metadataDigest}",
+  "size": 0,
+  "encrypted": true,
+  "pinned": false,
+  "createdAt": "{createdAt}",
+  "status": "staged",
+  "libraryPath": "ipfs_storage/backups/{backupId}",
+  "contentDisplayed": false
+}
+
