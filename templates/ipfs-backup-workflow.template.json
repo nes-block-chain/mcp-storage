@@ -1,0 +1,18 @@
+{
+  "name": "ipfs-http-backup-workflow",
+  "steps": [
+    { "number": 1, "operation": "prepare", "write": false, "contentDisplayed": false },
+    { "number": 2, "operation": "encrypt", "write": true, "keySource": "runtime-secret-store" },
+    { "number": 3, "operation": "http_add", "endpoint": "/api/v0/add", "write": true },
+    { "number": 4, "operation": "pin", "mcpTool": "ipfs_pin", "write": true },
+    { "number": 5, "operation": "register_metadata", "endpoint": "/v1/register", "write": true },
+    { "number": 6, "operation": "verify", "mcpTool": "ipfs_stat", "write": false },
+    { "number": 7, "operation": "read_library", "endpoint": "/v1/library", "write": false }
+  ],
+  "failurePolicy": {
+    "neverOverwrite": true,
+    "keepStagedCopy": true,
+    "doNotExposeSecrets": true
+  }
+}
+
