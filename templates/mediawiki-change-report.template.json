@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "reportType": "daily-source-change-check",
+  "source": "https://www.mediawiki.org/wiki/MediaWiki",
+  "checkedAt": "{checkedAt}",
+  "previousCheckAt": "{previousCheckAt}",
+  "result": "unchanged",
+  "sourceAvailable": true,
+  "changed": false,
+  "missing": false,
+  "rawSha256": "sha256:{rawDigest}",
+  "previousRawSha256": "sha256:{previousRawDigest}",
+  "encryptedBackupCreated": true,
+  "ipfsRegistered": false,
+  "notes": []
+}
+
