@@ -1,0 +1,31 @@
+{
+  "templateVersion": 1,
+  "source": {
+    "name": "MediaWiki",
+    "url": "https://www.mediawiki.org/wiki/MediaWiki",
+    "checkInterval": "24h",
+    "requestTimeoutSeconds": 30
+  },
+  "stagingRoot": "${PC_STORAGE_ROOT}/out_sync/ipfs/staging/mediawiki",
+  "encryptedBackupRoot": "${PC_STORAGE_ROOT}/out_sync/ipfs/backups/mediawiki",
+  "manifestRoot": "${PC_STORAGE_ROOT}/out_sync/ipfs/manifests/mediawiki",
+  "reportRoot": "${PC_STORAGE_ROOT}/library/reports/mediawiki",
+  "encryption": {
+    "required": true,
+    "algorithm": "AES-256-GCM",
+    "keyEnvironment": "IPFS_BACKUP_KEY_B64",
+    "failClosed": true
+  },
+  "ipfs": {
+    "transport": "http",
+    "apiUrlEnvironment": "IPFS_API_URL",
+    "addEndpoint": "/api/v0/add",
+    "pinAfterAdd": true
+  },
+  "privacy": {
+    "includeRawSnapshotInReport": false,
+    "includeSecrets": false,
+    "includePersonalData": false
+  }
+}
+
